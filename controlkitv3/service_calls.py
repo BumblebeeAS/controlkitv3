@@ -14,7 +14,11 @@ from rclpy.node import Node
 
 class ServiceCalls(Node):
     def __init__(self):
-        super().__init__("keyboard_control_node")
+        super().__init__("keyboard_service_calls_node")
+
+        # Clear terminal and store original settings
+        self.clear_terminal()
+        self.old_settings = termios.tcgetattr(sys.stdin)
 
         # Initialize service clients
         self.reset_pose_client = self.create_client(ResetPose, "/auv4/nav/reset_pose")
@@ -23,20 +27,17 @@ class ServiceCalls(Node):
         )
 
         # Wait for services to be available
-        self.get_logger().info("Waiting for services to be available...")
+        print("Waiting for services to be available...", flush=True)
         while not self.reset_pose_client.wait_for_service(timeout_sec=1.0):
-            self.get_logger().info("Reset pose service not available, waiting again...")
+            print("Reset pose service not available, waiting again...", flush=True)
 
         while not self.controller_client.wait_for_service(timeout_sec=1.0):
-            self.get_logger().info("Controller service not available, waiting again...")
+            print("Controller service not available, waiting again...", flush=True)
 
-        self.get_logger().info("Services are available!")
+        print("Services are available!", flush=True)
 
         # Track current controller state for space bar toggle
         self.controls_enabled = False
-
-        # Store original terminal settings
-        self.old_settings = termios.tcgetattr(sys.stdin)
 
         # Setup terminal for character-by-character input
         tty.setraw(sys.stdin.fileno())
@@ -47,22 +48,46 @@ class ServiceCalls(Node):
         self.keyboard_thread.daemon = True
         self.keyboard_thread.start()
 
-        self.print_help()
+        self.draw_interface()
 
-    def print_help(self):
-        """Print available commands"""
-        print("\n" + "=" * 50)
-        print("AUV4 Keyboard Control Node")
-        print("=" * 50)
+    def clear_terminal(self):
+        """Clear the terminal screen"""
+        print("\033[2J\033[H", end="", flush=True)
+
+    def draw_interface(self):
+        """Draw the complete interface with help pinned at top"""
+        # Temporarily restore normal terminal mode for clean printing
+        termios.tcsetattr(sys.stdin, termios.TCSADRAIN, self.old_settings)
+
+        # Clear screen and position cursor at top
+        print("\033[2J\033[H", end="")
+
+        # Draw the pinned help section
+        print("=" * 60)
+        print("AUV4 Service Calls")
+        print("=" * 60)
         print("Commands:")
         print("  e - Enable controls")
         print("  d - Disable controls")
         print("  r - Reset pose")
         print("  space - Toggle controls enable/disable")
-        print("  h - Show this help")
+        print("  h - Refresh display")
         print("  q - Quit")
-        print("=" * 50)
-        print("Waiting for input...")
+        print("=" * 60)
+        print(
+            f"Controls Status: {('ENABLED' if self.controls_enabled else 'DISABLED')}"
+        )
+        print("=" * 60)
+        print("Status Messages:")
+        print("Ready - Waiting for input...")
+        print("", flush=True)
+
+        # Return to raw mode
+        tty.setraw(sys.stdin.fileno())
+
+    def print_help(self):
+        """Refresh the entire interface"""
+        self.draw_interface()
 
     def keyboard_listener(self):
         """Listen for keyboard input in a separate thread"""
@@ -87,11 +112,48 @@ class ServiceCalls(Node):
         elif char.lower() == "h":
             self.print_help()
         elif char.lower() == "q":
-            self.get_logger().info("Quitting...")
+            self.print_message("Quitting...")
             self.running = False
             rclpy.shutdown()
         else:
-            print(f"Unknown command: '{char}'. Press 'h' for help.")
+            self.print_message(f"Unknown command: '{char}'. Press 'h' for help.")
+
+    def print_message(self, message):
+        """Print a message in the status area without disturbing the help"""
+        # Temporarily restore normal terminal mode for clean printing
+        termios.tcsetattr(sys.stdin, termios.TCSADRAIN, self.old_settings)
+
+        # Position cursor at status message line (line 15)
+        print("\033[15;1H", end="")
+        # Clear multiple lines to handle message wrapping
+        for i in range(4):  # Clear 4 lines to handle long messages
+            print("\033[2K", end="")  # Clear entire line
+            if i < 3:  # Don't move down after the last line
+                print("\033[1B", end="")  # Move cursor down one line
+
+        # Return to line 15 and print the message
+        print("\033[15;1H", end="")
+        print(f"{message}", flush=True)
+
+        # Return to raw mode
+        tty.setraw(sys.stdin.fileno())
+
+    def update_status(self):
+        """Update the controls status display"""
+        # Temporarily restore normal terminal mode for clean printing
+        termios.tcsetattr(sys.stdin, termios.TCSADRAIN, self.old_settings)
+
+        # Position cursor at status line (line 12)
+        print("\033[12;1H", end="")
+        # Clear the entire line
+        print("\033[2K", end="")  # Clear entire line
+        print(
+            f"Controls Status: {('ENABLED' if self.controls_enabled else 'DISABLED')}",
+            flush=True,
+        )
+
+        # Return to raw mode
+        tty.setraw(sys.stdin.fileno())
 
     def enable_controls(self):
         """Enable AUV controls"""
@@ -139,20 +201,21 @@ class ServiceCalls(Node):
             self.controls_enabled = new_state
             state_str = "ENABLED" if new_state else "DISABLED"
             self.get_logger().info(f"{action} successful - Controls: {state_str}")
-            print(f"> {action} successful - Controls: {state_str}")
+            self.update_status()  # Update the status display
+            self.print_message(f"{action} successful - Controls: {state_str}")
         except Exception as e:
             self.get_logger().error(f"{action} failed: {e}")
-            print(f"> {action} failed: {e}")
+            self.print_message(f"{action} failed: {e}")
 
     def reset_pose_callback(self, future):
         """Callback for reset pose service calls"""
         try:
             response = future.result()
             self.get_logger().info("Reset pose successful")
-            print("> Reset pose successful")
+            self.print_message("Reset pose successful")
         except Exception as e:
             self.get_logger().error(f"Reset pose failed: {e}")
-            print(f"> Reset pose failed: {e}")
+            self.print_message(f"Reset pose failed: {e}")
 
     def cleanup(self):
         """Restore terminal settings"""
