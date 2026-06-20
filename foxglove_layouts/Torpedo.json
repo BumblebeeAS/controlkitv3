@@ -1,0 +1,390 @@
+{
+  "configById": {
+    "3D!18i6zy7": {
+      "layers": {
+        "845139cb-26bc-40b3-8161-8ab60af4baf5": {
+          "visible": true,
+          "frameLocked": true,
+          "label": "Grid",
+          "instanceId": "845139cb-26bc-40b3-8161-8ab60af4baf5",
+          "layerId": "foxglove.Grid",
+          "size": 10,
+          "divisions": 10,
+          "lineWidth": 1,
+          "color": "#248eff",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "order": 1
+        }
+      },
+      "cameraState": {
+        "distance": 1.9888051397356137,
+        "perspective": true,
+        "phi": 70.76606451665975,
+        "target": [
+          0,
+          0,
+          0
+        ],
+        "targetOffset": [
+          0.633358030547128,
+          -0.05084020918602449,
+          -0.022978896648431127
+        ],
+        "targetOrientation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "thetaOffset": 34.738117051178364,
+        "fovy": 45,
+        "near": 0.5,
+        "far": 5000
+      },
+      "followMode": "follow-pose",
+      "scene": {
+        "transforms": {
+          "visible": true,
+          "showLabel": false
+        }
+      },
+      "transforms": {
+        "frame:Task03_DropBRUVS_Rotated_optical": {
+          "visible": true
+        },
+        "frame:Task03_DropBRUVS_optical": {
+          "visible": true
+        },
+        "frame:base_link": {
+          "visible": false
+        },
+        "frame:dropper_link": {
+          "visible": false
+        },
+        "frame:bottom_cam_optical": {
+          "visible": false
+        },
+        "frame:bottom_cam_link": {
+          "visible": false
+        },
+        "frame:thruster1": {
+          "visible": false
+        },
+        "frame:thruster2": {
+          "visible": false
+        },
+        "frame:thruster3": {
+          "visible": false
+        },
+        "frame:thruster4": {
+          "visible": false
+        },
+        "frame:thruster5": {
+          "visible": false
+        },
+        "frame:thruster6": {
+          "visible": false
+        },
+        "frame:map_ned": {
+          "visible": false
+        },
+        "frame:odom": {
+          "visible": false
+        },
+        "frame:odom_ned": {
+          "visible": false
+        },
+        "frame:torpedo_1_0": {
+          "visible": false
+        },
+        "frame:map": {
+          "visible": false
+        },
+        "frame:torpedo_shooter_left_link": {
+          "visible": false
+        },
+        "frame:torpedo_shooter_right_link": {
+          "visible": false
+        },
+        "frame:bin/yolo/clustered_0": {
+          "visible": false
+        },
+        "frame:bin/centre": {
+          "visible": false
+        },
+        "frame:bin/centre/view": {
+          "visible": false
+        },
+        "frame:torpedo_1_0/fish": {
+          "visible": false
+        },
+        "frame:torpedo_1_0/shark": {
+          "visible": false
+        },
+        "frame:torpedo/yolo/clustered_0": {
+          "visible": false
+        },
+        "frame:torpedo_1/yolo": {
+          "visible": false
+        },
+        "frame:torpedo_1/yolo/fish": {
+          "visible": false
+        },
+        "frame:torpedo_1/yolo/shark": {
+          "visible": false
+        },
+        "frame:torpedo_2/yolo": {
+          "visible": false
+        },
+        "frame:torpedo_2/yolo/fish": {
+          "visible": false
+        },
+        "frame:torpedo_2/yolo/shark": {
+          "visible": false
+        },
+        "frame:torpedo/centre/view": {
+          "visible": false
+        },
+        "frame:torpedo/centre": {
+          "visible": false
+        },
+        "frame:base_link_frd": {
+          "visible": false
+        },
+        "frame:front_cam_link": {
+          "visible": false
+        },
+        "frame:front_cam_optical": {
+          "visible": false
+        },
+        "frame:bin/clustered_0": {
+          "visible": false
+        },
+        "frame:bin/fish": {
+          "visible": false
+        },
+        "frame:bin/fish/view": {
+          "visible": false
+        },
+        "frame:bin/fish/rotated": {
+          "visible": false
+        },
+        "frame:bin/fish/rotated/view": {
+          "visible": false
+        },
+        "frame:bin/shark": {
+          "visible": false
+        },
+        "frame:bin/shark/view": {
+          "visible": false
+        },
+        "frame:bin/shark/rotated": {
+          "visible": false
+        },
+        "frame:bin/shark/rotated/view": {
+          "visible": false
+        },
+        "frame:torpedo_2_0": {
+          "visible": false
+        },
+        "frame:torpedo_2_0/fish": {
+          "visible": false
+        },
+        "frame:torpedo_2_0/fish/view": {
+          "visible": false
+        },
+        "frame:torpedo_2_0/shark": {
+          "visible": false
+        },
+        "frame:torpedo_2_0/shark/view": {
+          "visible": false
+        }
+      },
+      "topics": {
+        "/auv4/pose": {
+          "visible": true
+        },
+        "/asv5/controls/trajectory/viz": {
+          "visible": true
+        },
+        "/asv5/pose": {
+          "visible": true
+        },
+        "/auv4/controls/trajectory/viz": {
+          "visible": true
+        },
+        "/robot_description": {
+          "visible": true,
+          "showOutlines": false
+        },
+        "/bluerov/front_cam/image": {
+          "visible": true,
+          "frameLocked": true,
+          "cameraInfoTopic": "/bluerov/front_cam/camera_info",
+          "distance": 1,
+          "planarProjectionFactor": 0,
+          "color": "#ffffff",
+          "projectionFrameId": "map"
+        },
+        "/mavros/vision_pose/pose": {
+          "visible": false
+        },
+        "/bluerov/bottom_cam/image": {
+          "visible": false,
+          "frameLocked": true,
+          "cameraInfoTopic": "/bluerov/bottom_cam/camera_info",
+          "distance": 1,
+          "planarProjectionFactor": 0,
+          "color": "#ffffff",
+          "projectionFrameId": "map"
+        },
+        "/bluerov/front_cam/camera_info": {
+          "visible": false
+        },
+        "/world_objects/markers": {
+          "visible": false
+        },
+        "/bluerov/torpedo/torpedo/yolo/pose": {
+          "visible": false
+        },
+        "/bluerov/torpedo/points/pose": {
+          "visible": false
+        },
+        "/bluerov/clustered_poses": {
+          "visible": false
+        }
+      },
+      "publish": {
+        "type": "point",
+        "poseTopic": "/move_base_simple/goal",
+        "pointTopic": "/clicked_point",
+        "poseEstimateTopic": "/initialpose",
+        "poseEstimateXDeviation": 0.5,
+        "poseEstimateYDeviation": 0.5,
+        "poseEstimateThetaDeviation": 0.26179939
+      },
+      "imageMode": {},
+      "followTf": "base_link",
+      "synchronize": false
+    },
+    "Image!18ee62j": {
+      "cameraState": {
+        "distance": 20,
+        "perspective": true,
+        "phi": 60,
+        "target": [
+          0,
+          0,
+          0
+        ],
+        "targetOffset": [
+          0,
+          0,
+          0
+        ],
+        "targetOrientation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "thetaOffset": 45,
+        "fovy": 45,
+        "near": 0.5,
+        "far": 5000
+      },
+      "followMode": "follow-pose",
+      "scene": {
+        "transforms": {
+          "showLabel": false
+        }
+      },
+      "transforms": {
+        "frame:bin/clustered_0": {
+          "visible": false
+        },
+        "frame:torpedo_1_0": {
+          "visible": true
+        },
+        "frame:torpedo_1_0/fish": {
+          "visible": true
+        },
+        "frame:torpedo_1_0/shark": {
+          "visible": true
+        }
+      },
+      "topics": {
+        "/bluerov/bin/bin/yolo/pose": {
+          "visible": false
+        },
+        "/bluerov/torpedo/torpedo/yolo/pose": {
+          "visible": false
+        },
+        "/bluerov/torpedo/points/pose": {
+          "visible": false
+        }
+      },
+      "layers": {},
+      "publish": {
+        "type": "point",
+        "poseTopic": "/move_base_simple/goal",
+        "pointTopic": "/clicked_point",
+        "poseEstimateTopic": "/initialpose",
+        "poseEstimateXDeviation": 0.5,
+        "poseEstimateYDeviation": 0.5,
+        "poseEstimateThetaDeviation": 0.26179939
+      },
+      "imageMode": {
+        "imageTopic": "/bluerov/front_cam/image",
+        "calibrationTopic": "/bluerov/front_cam/camera_info",
+        "annotations": {
+          "/bluerov/torpedo/ellipse_annotation": {
+            "visible": true
+          },
+          "/bluerov/torpedo/image_matching/annotations": {
+            "visible": true
+          },
+          "/bluerov/torpedo/inlier_points_annotation": {
+            "visible": true
+          },
+          "/bluerov/torpedo/torpedo/hole/yolo/annotations": {
+            "visible": true
+          },
+          "/bluerov/torpedo/torpedo/yolo/annotations": {
+            "visible": true
+          },
+          "/bluerov/bin/bin/yolo/annotations": {
+            "visible": false
+          },
+          "/bluerov/bin/image_matching/annotations": {
+            "visible": false
+          }
+        }
+      },
+      "synchronize": false
+    }
+  },
+  "globalVariables": {},
+  "userNodes": {},
+  "playbackConfig": {
+    "speed": 1
+  },
+  "drawerConfig": {
+    "tracks": []
+  },
+  "layout": {
+    "first": "3D!18i6zy7",
+    "second": "Image!18ee62j",
+    "direction": "column",
+    "splitPercentage": 43.47912862246816
+  }
+}
